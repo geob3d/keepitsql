@@ -190,7 +190,7 @@ class CopyDDl:
     ) -> str:
         table_name = (
             self.create_table_name_format(new_table_name, new_schema_name)
-            if temp_table_dbms is None
+            if temp_dll_output is None
             else (new_table_name or self.local_table_name)
         )
 
