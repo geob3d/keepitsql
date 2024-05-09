@@ -186,7 +186,7 @@ class CopyDDl:
         include_fk: Optional[str] = 'Y',
         new_schema_name: Optional[str] = None,
         new_table_name: Optional[str] = None,
-        temp_table_dbms: Optional[str] = None,
+        temp_dll_output: Optional[str] = None,
     ) -> str:
         table_name = (
             self.create_table_name_format(new_table_name, new_schema_name)
@@ -194,19 +194,29 @@ class CopyDDl:
             else (new_table_name or self.local_table_name)
         )
 
-        tbl_header = (
-            ct.create_temp_table_header.get(temp_table_dbms).format(table_name=table_name)
-            if temp_table_dbms is not None
-            else ct.create_table_header.format(table_name=table_name)
-        )
+        # tbl_header = (
+        #     ct.create_temp_table_header.get(temp_dll_output).format(table_name=table_name)
+        #     if temp_table_dbms is not None
+        #     else ct.create_table_header.format(table_name=table_name)
+        # )
+
+        table_header = ct.create_table_header.format(table_name=table_name)
+        temp_table_header = ct.create_temp_table_header.get(temp_dll_output).format(table_name=table_name)
 
         table_ddl = ct.create_table.format(
-            table_header=tbl_header,
+            table_header=table_header,
             column_list=self.create_column_ddl(),
             primary_key=self.get_primary_key_info(),
         )
         table_ddl += '\n' + self.create_foriegn_key_statements()
-        return table_ddl
+
+        temp_table_ddl = ct.create_table.format(
+            table_header=temp_table_header,
+            column_list=self.create_column_ddl(),
+            primary_key=self.get_primary_key_info(),
+        )
+
+        return table_ddl, temp_table_ddl
 
 
 # def replace_table_name():
