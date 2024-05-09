@@ -12,7 +12,7 @@ icontract = "^2.6.6"
 loguru = "^0.7.2"
 pydantic = "^2.7"
 python = "^3.11"
-data-engineer-utils = { path = "/Users/themobilescientist/Documents/projects/data_engineer_utils" }
+data-engineer-utils = {git = "https://github.com/geob3d/data_engineer_utils.git"}
 sqlalchemy = "^2.0.25"
 black = "^24.3.0"
 pandas = "^2.2.1"
