@@ -1,12 +1,18 @@
 from __future__ import annotations
 
-create_temp_table_header = {
-    'pg': 'CREATE TEMP TABLE {table_name} ',
-    'mysql_global': 'CREATE TEMPORARY TABLE {table_name} ',
-    'mssql_global': 'CREATE TABLE ##{table_name} ',
-    'mssql_local': 'CREATE TABLE #{table_name} ',
-    'sqlite': 'CREATE TEMP TABLE {table_name} ',
-    'oracle': 'CREATE GLOBAL TEMPORARY TABLE {table_name} ',
+create_temp_table_headers = {
+    "oracle": "CREATE GLOBAL TEMPORARY TABLE {table_name} ",
+    "mssql": "CREATE TABLE ##{table_name} ",  # Global temporary table
+    "mssql_local": "CREATE TABLE #{table_name} ",  # Local temporary table
+    "db2": "",  # DB2 specific statement not provided
+    "postgresql": "CREATE TEMP TABLE {table_name} ",
+    "mysql": "CREATE TEMPORARY TABLE {table_name} ",
+    "sqlite": "CREATE TEMP TABLE {table_name} ",
+    "teradata": "",  # Teradata specific statement not provided
+    "hana": "",  # SAP HANA specific statement not provided
+    "snowflake": "",  # Snowflake specific statement not provided
+    "redshift": "CREATE TEMP TABLE {table_name} ",
+    "bigquery": "",  # BigQuery specific statement not provided
 }
 
 
