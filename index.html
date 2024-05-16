@@ -294,30 +294,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-creating-an-insert-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Creating an Insert Statement
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-creating-an-upsert-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Creating an Upsert Statement
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -511,30 +487,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-creating-an-insert-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Creating an Insert Statement
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-creating-an-upsert-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Creating an Upsert Statement
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -556,7 +508,8 @@
 
 
 <h1 id="welcome-to-keepitsql">Welcome to KeepItSql</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
+<p>Getting Started with KeepItSQL</p>
+<p>Welcome to KeepItSQL, a powerful package designed to generate SQL syntax from a dataframe. This package simplifies SQL operations by automatically creating INSERT and UPSERT statements based on your dataframe and the target database.</p>
 <h2 id="installation">Installation</h2>
 <p>First, you need to install the KeepItSQL package. If it’s available on PyPI, you can install it using pip:</p>
 <pre><code>pip install keepitsql
@@ -573,35 +526,6 @@ pip install .
 </code></pre>
 <h2 id="quick-start">Quick Start</h2>
 <h2 id="commands">Commands</h2>
-<h3 id="1-creating-an-insert-statement">1. Creating an Insert Statement</h3>
-<p>To generate an INSERT statement from a dataframe, use the FromDataframe class:</p>
-<p>import pandas as pd
-from keepitsql.core.fromdataframe import FromDataframe</p>
-<pre><code># Sample data
-data = {
-    &quot;ItemID&quot;: [&quot;ID101&quot;, &quot;ID102&quot;, &quot;ID103&quot;, &quot;ID104&quot;, &quot;ID105&quot;],
-    &quot;ItemName&quot;: [&quot;Laptop&quot;, &quot;Desk Chair&quot;, &quot;USB-C Cable&quot;, &quot;Monitor&quot;, &quot;Mouse&quot;],
-    &quot;Description&quot;: [
-        &quot;15-inch laptop with 8GB RAM&quot;,
-        &quot;Ergonomic office chair&quot;,
-        &quot;1m USB-C charging cable&quot;,
-        &quot;24-inch LED monitor&quot;,
-        &quot;Magic Apple&quot;,
-    ],
-    &quot;Category&quot;: [&quot;Electronics&quot;, &quot;Furniture&quot;, &quot;Electronics&quot;, &quot;Electronics&quot;, &quot;Accessories&quot;],
-    &quot;Quantity&quot;: [10, 5, 50, 8, 4],
-    &quot;Location&quot;: [&quot;Warehouse A&quot;, &quot;Warehouse B&quot;, &quot;Warehouse A&quot;, &quot;Warehouse C&quot;, &quot;Warehouse C&quot;],
-}
-
-df = pd.DataFrame(data)
-
-# Generate Insert Statement
-insert_generator = FromDataframe(target_table=&quot;your_table_name&quot;, dataframe=df, target_schema=&quot;your_schema&quot;)
-insert_statement = insert_generator.insert()
-print(insert_statement)
-</code></pre>
-<h3 id="2-creating-an-upsert-statement">2. Creating an Upsert Statement</h3>
-<p>The FromDataframe class can also generate an UPSERT statement, dynamically choosing between a MERGE or INSERT ON CONFLICT statement based on the target database:</p>
 <!-- * `mkdocs new [dir-name]` - Create a new project.
 * `mkdocs serve` - Start the live-reloading docs server.
 * `mkdocs build` - Build the documentation site.
