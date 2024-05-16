@@ -17,6 +17,6 @@ nav:
   - Get Started:
     - get-started/from-dataframe.md
     # - get-started/get-started.md
-  - How-To-Guides: how-to-guides.md
+  - future-enhancement.md
   - reference.md
   - explanation.md

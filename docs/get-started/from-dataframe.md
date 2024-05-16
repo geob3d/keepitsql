@@ -1,3 +1,11 @@
+
+
+## Description
+
+The FromDataframe module is used to call the insert or upsert functions, which create the SQL syntax based on the dataframe and the target database. The goal of the package is to generate SQL statements that can be executed on your database to insert or upsert data from a dataframe.
+
+
+
 ## 1. Creating an Insert Statement
 
 To generate an INSERT statement from a dataframe, use the FromDataframe class:
