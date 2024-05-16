@@ -1,0 +1,22 @@
+site_name: KeepItSql
+
+
+theme:
+  name: "material"
+
+plugins:
+  - search
+  - mkdocstrings
+
+
+repo_name: geob3d /keepitsql 
+repo_url: https://github.com/geob3d/keepitsql
+
+nav:
+  - Installation: index.md
+  - Get Started:
+    - get-started/from-dataframe.md
+    # - get-started/get-started.md
+  - How-To-Guides: how-to-guides.md
+  - reference.md
+  - explanation.md
