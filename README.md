@@ -19,9 +19,14 @@ pip install .
 ```
 
 
+
+
 ## Modules Overview
 
 KeepItSQL provides two main functionalities:
 
 	•	Insert: Generates an INSERT statement from a dataframe.
 	•	Upsert: Generates an UPSERT statement, which can be either a MERGE or INSERT ON CONFLICT statement, based on the database type.
+
+## Resources
+[Documentation](https://geob3d.github.io/keepitsql/)
