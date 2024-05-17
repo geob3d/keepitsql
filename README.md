@@ -1,4 +1,4 @@
-## Getting Started with KeepItSQL
+# Getting Started with KeepItSQL
 
 Welcome to KeepItSQL, a powerful package designed to generate SQL syntax from a dataframe. This package simplifies SQL operations by automatically creating INSERT and UPSERT statements based on your dataframe and the target database.
 
