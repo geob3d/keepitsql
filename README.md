@@ -1,46 +1,27 @@
-# keepitsql
-A python library for generaating sql code
+## Getting Started with KeepItSQL
 
-## Overview
-TBD
+Welcome to KeepItSQL, a powerful package designed to generate SQL syntax from a dataframe. This package simplifies SQL operations by automatically creating INSERT and UPSERT statements based on your dataframe and the target database.
 
-## Usage
-This project is set up using poetry. To install the dependencies, run `poetry install` from the root of the project.
 
-```shell
-poetry install
+## Installation
+
+First, you need to install the KeepItSQL package. If it’s available on PyPI, you can install it using pip:
+
+```
+pip install keepitsql
 ```
 
-To add a new dependency, run `poetry add <dependency>` from the root of the project.
-
-```shell
-poetry add <dependency>
+If it’s not available on PyPI, you can install it directly from the source:
 ```
-
-### Pre-Commit Hooks
-This project uses [pre-commit](https://pre-commit.com/) to run linting and formatting tools before each commit. To install the pre-commit hooks, run `pre-commit install` from the root of the project.
-
-```shell
-poetry run pre-commit install
-```
-
-To run the pre-commit hooks manually, run `pre-commit run --all-files` from the root of the project.
-
-```shell
-poetry run pre-commit run --all-files
+git clone https://github.com/your-repo/keepitsql.git
+cd keepitsql
+pip install .
 ```
 
 
-### Testing
-This project uses [pytest](https://docs.pytest.org/en/stable/) for testing. To run the tests, run `pytest` from the root of the project in the poetry shell.
+## Modules Overview
 
-```shell
-poetry run pytest
-```
+KeepItSQL provides two main functionalities:
 
-There are sensible defaults for pytest setup in the `pyproject.toml` file. You can override these defaults by passing in command line arguments. For example, to run the tests with debug logging enabled, run `pytest --log-cli-level=DEBUG` from the root of the project.
-
-```shell
-poetry run pytest --log-cli-level=DEBUG
-```
-
+	•	Insert: Generates an INSERT statement from a dataframe.
+	•	Upsert: Generates an UPSERT statement, which can be either a MERGE or INSERT ON CONFLICT statement, based on the database type.
