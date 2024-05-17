@@ -13,7 +13,7 @@ pip install keepitsql
 
 If it’s not available on PyPI, you can install it directly from the source:
 ```
-git clone https://github.com/your-repo/keepitsql.git
+git clone https://github.com/geob3d/keepitsql.git
 cd keepitsql
 pip install .
 ```
