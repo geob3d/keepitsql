@@ -201,7 +201,7 @@ class CopyDDl:
         # )
 
         table_header = ct.create_table_header.format(table_name=table_name)
-        temp_table_header = ct.create_temp_table_header.get(temp_dll_output).format(table_name=table_name)
+        temp_table_header = ct.create_temp_table_headers.get(temp_dll_output).format(table_name=table_name)
 
         table_ddl = ct.create_table.format(
             table_header=table_header,
