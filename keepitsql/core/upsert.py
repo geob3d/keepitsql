@@ -201,7 +201,7 @@ class Upsert:
         column_exclusion: list = None,
         temp_type: str = None,
         dbms_output=None,
-    ):
+    ) -> str:
         """
         Creates an upsert statement based on the DBMS type. If the DBMS supports MERGE, it creates a merge statement.
         Otherwise, it creates an insert-on-conflict statement.
@@ -217,8 +217,9 @@ class Upsert:
         Returns:
             str: The generated upsert statement.
         """
+
         if get_upsert_type_by_dbms(dbms_output) == 'MERGE':
-            return self.__merge_instance.merge(
+            upsert_statment = self.__merge_instance.merge(
                 source_table=source_table,
                 match_condition=match_condition,
                 source_schema=source_schema,
@@ -226,13 +227,14 @@ class Upsert:
                 temp_type=temp_type,
             )
         else:
-            return self.__insert_instance.insert_on_conflict(
+            upsert_statment = self.__insert_instance.insert_on_conflict(
                 source_table=source_table,
                 match_condition=match_condition,
                 source_schema=source_schema,
                 column_exclusion=column_exclusion,
                 temp_type=temp_type,
             )
+        return upsert_statment
 
 
 # get_dbms_by_py_driver()
