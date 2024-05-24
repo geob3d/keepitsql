@@ -105,9 +105,9 @@ class CopyDDl:
             identity_int_columns = [
                 column.get('name') for column in self.get_table_info() if column.get('autoincrement')
             ]
-            primary_key_ddl = f"PRIMARY KEY ({','.join(identity_int_columns)})\n" if identity_int_columns else ''
+            primary_key_ddl = f",PRIMARY KEY ({','.join(identity_int_columns)})\n" if identity_int_columns else ''
         else:
-            primary_key_ddl = f"PRIMARY KEY ({','.join(primary_keys)})\n"
+            primary_key_ddl = f",PRIMARY KEY ({','.join(primary_keys)})\n"
 
         return primary_key_ddl
 
