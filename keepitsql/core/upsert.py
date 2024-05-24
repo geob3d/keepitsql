@@ -165,7 +165,7 @@ class InsertOnConflict(Insert):
             insert_statment=insert_stmt, match_condition=match_conditions, update_list=update_list
         )
 
-        print(on_conflict_statement)
+        return on_conflict_statement
 
 
 class Upsert:
