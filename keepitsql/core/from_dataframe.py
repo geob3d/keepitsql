@@ -15,29 +15,29 @@ class FromDataframe(Upsert, Insert):
         super().__init__(target_table, target_schema, dataframe)
 
 
-# Test
-data = {
-    "ItemID": ["ID101", "ID102", "ID103", "ID104", "ID105"],
-    "ItemName": ["Laptop", "Desk Chair", "USB-C Cable", "Monitor", "Mouse"],
-    "Description": [
-        "15-inch laptop with 8GB RAM",
-        "Ergonomic office chair",
-        "1m USB-C charging cable",
-        "24-inch LED monitor",
-        "Magic Apple",
-    ],
-    "Category": ["Electronics", "Furniture", "Electronics", "Electronics", "Acessories"],
-    "Quantity": [10, 5, 50, 8, 4],
-    "Location": ["Warehouse A", "Warehouse B", "Warehouse A", "Warehouse C", "Warehouse C"],
-}
+# # Test
+# data = {
+#     "ItemID": ["ID101", "ID102", "ID103", "ID104", "ID105"],
+#     "ItemName": ["Laptop", "Desk Chair", "USB-C Cable", "Monitor", "Mouse"],
+#     "Description": [
+#         "15-inch laptop with 8GB RAM",
+#         "Ergonomic office chair",
+#         "1m USB-C charging cable",
+#         "24-inch LED monitor",
+#         "Magic Apple",
+#     ],
+#     "Category": ["Electronics", "Furniture", "Electronics", "Electronics", "Acessories"],
+#     "Quantity": [10, 5, 50, 8, 4],
+#     "Location": ["Warehouse A", "Warehouse B", "Warehouse A", "Warehouse C", "Warehouse C"],
+# }
 
-import pandas as pd
+# import pandas as pd
 
-df3 = pd.DataFrame(data)
-merge_test = FromDataframe("sample", df3, "dd")
+# df3 = pd.DataFrame(data)
+# merge_test = FromDataframe("sample", df3, "dd")
 
-# ints = merge_test.merge(source_table='human', match_condition=['ItemId'])
-in3 = merge_test.upsert(source_table='human', match_condition=['ItemID'], dbms_output='postgresql')
+# # ints = merge_test.merge(source_table='human', match_condition=['ItemId'])
+# in3 = merge_test.upsert(source_table='human', match_condition=['ItemID'], dbms_output='postgresql')
 
 
 # merge_test = FromDataframe("sample", df3, "dd")
