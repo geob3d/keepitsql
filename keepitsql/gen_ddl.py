@@ -187,6 +187,7 @@ class CopyDDl:
         new_schema_name: Optional[str] = None,
         new_table_name: Optional[str] = None,
         temp_dll_output: Optional[str] = None,
+        drop_primary_key: str = 'N',
     ) -> str:
         table_name = (
             self.create_table_name_format(new_table_name, new_schema_name)
@@ -203,6 +204,8 @@ class CopyDDl:
         table_header = ct.create_table_header.format(table_name=table_name)
         temp_table_header = ct.create_temp_table_headers.get(temp_dll_output).format(table_name=table_name)
 
+        gen_primary_key = self.get_primary_key_info() if drop_primary_key == 'N' else ' '
+
         table_ddl = ct.create_table.format(
             table_header=table_header,
             column_list=self.create_column_ddl(),
@@ -213,7 +216,7 @@ class CopyDDl:
         temp_table_ddl = ct.create_table.format(
             table_header=temp_table_header,
             column_list=self.create_column_ddl(),
-            primary_key=self.get_primary_key_info(),
+            primary_key=gen_primary_key,
         )
 
         return table_ddl, temp_table_ddl
