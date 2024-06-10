@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Optional
 
@@ -13,6 +14,20 @@ from keepitsql.sql_models import alter_table as at
 from keepitsql.sql_models import create_table as ct
 
 # from sql_models import
+
+
+def remove_collate(ddl):
+    """
+    Remove COLLATE clause from the DDL.
+    Handles both inline and quoted collate clauses.
+    """
+    # Pattern to match COLLATE clauses
+    pattern = r'\s+COLLATE\s+["\w]+'
+
+    # Remove all COLLATE clauses
+    ddl_no_collate = re.sub(pattern, '', ddl, flags=re.IGNORECASE)
+
+    return ddl_no_collate
 
 
 def generate_add_foreign_key_statement(
@@ -206,17 +221,21 @@ class CopyDDl:
 
         gen_primary_key = self.get_primary_key_info() if drop_primary_key == 'N' else ' '
 
-        table_ddl = ct.create_table.format(
-            table_header=table_header,
-            column_list=self.create_column_ddl(),
-            primary_key=self.get_primary_key_info(),
+        table_ddl = remove_collate(
+            ct.create_table.format(
+                table_header=table_header,
+                column_list=self.create_column_ddl(),
+                primary_key=self.get_primary_key_info(),
+            )
         )
         table_ddl += '\n' + self.create_foriegn_key_statements()
 
-        temp_table_ddl = ct.create_table.format(
-            table_header=temp_table_header,
-            column_list=self.create_column_ddl(),
-            primary_key=gen_primary_key,
+        temp_table_ddl = remove_collate(
+            ct.create_table.format(
+                table_header=temp_table_header,
+                column_list=self.create_column_ddl(),
+                primary_key=gen_primary_key,
+            )
         )
 
         return table_ddl, temp_table_ddl
