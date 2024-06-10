@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-merge_condition = 'SOURCE.{source_column} = {target_column}'
+merge_condition = 'SOURCE.{source_column} = TARGET.{target_column}'
 when_matched_condition = 'TARGET.{target_column} <> SOURCE.{source_column}'
 update_list = ' {target_column} = SOURCE.{source_column}'
 merge_insert = 'SOURCE.{source_column}'

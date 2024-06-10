@@ -81,7 +81,7 @@ class Merge:
             mst.merge_condition.format(source_column=col, target_column=col) for col in match_condition
         )
 
-        matched_condition = ',\n OR '.join(
+        matched_condition = '\n OR '.join(
             mst.when_matched_condition.format(target_column=col, source_column=col) for col in column_inclusion
         )
 
