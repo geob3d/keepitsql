@@ -215,9 +215,11 @@ class Upsert:
             source_table (str): The name of the source table.
             match_condition (list): The list of columns to be used as match conditions.
             source_schema (str, optional): The schema of the source table. Defaults to None.
-            column_exclusion (list, optional): The list of columns to be excluded from the upsert. Defaults to None.
+            constraint_columns (list, optional): The list of columns that are used as constraints, such as primary keys or
+                                                auto-update columns, which should not be inserted. This is applied to
+                                                database systems that use the MERGE statement. Defaults to None.
             temp_type (str, optional): The type of temporary table to be used. Defaults to None.
-            dbms_output (str, optional): The DBMS type. Defaults to None.
+            dbms_output (str, optional): The DBMS type (e.g., 'mssql', 'postgresql'). Defaults to None.
 
         Returns:
             str: The generated upsert statement.
