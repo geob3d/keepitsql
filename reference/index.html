@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
     
     
       
@@ -137,7 +137,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -941,15 +941,69 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FromDataframe</span><span class="p">(</span><span class="n">Upsert</span><span class="p">,</span> <span class="n">Insert</span><span class="p">):</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FromDataframe</span><span class="p">(</span><span class="n">Upsert</span><span class="p">,</span> <span class="n">Insert</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">target_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a new instance of the FromDataframe class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        - target_table: str. The name of the target table for SQL operations.</span>
-<span class="sd">        - dataframe: DataFrame. The dataframe containing the data to be upserted.</span>
-<span class="sd">        - target_schema: str, optional. The schema of the target table, if applicable.</span>
+<span class="sd">        - dataframe: DataFrame. The dataframe contclass FromDataframe(Upsert, Insert):</span>
+<span class="sd">            def __init__(self, target_table, dataframe, target_schema=None):</span>
+
+<span class="sd">                Initializes a new instance of the FromDataframe class, which is designed to perform upsert and insert operations on a SQL table using data from a pandas DataFrame.</span>
+
+<span class="sd">                Inherits from:</span>
+<span class="sd">                Upsert -- A class that implements the logic for updating existing records or inserting new records if they do not exist.</span>
+<span class="sd">                Insert -- A class that implements the logic for inserting new records into a SQL table.</span>
+
+<span class="sd">                Parameters</span>
+<span class="sd">                ----------</span>
+<span class="sd">                target_table : str</span>
+<span class="sd">                    The name of the target table where SQL operations will be performed.</span>
+
+<span class="sd">                dataframe : DataFrame</span>
+<span class="sd">                    The pandas DataFrame containing the data that needs to be upserted or inserted into the target table.</span>
+
+
+
+<span class="sd">                Methods</span>
+<span class="sd">                -------</span>
+<span class="sd">                The class should implement methods inherited from `Upsert` and `Insert` classes for executing SQL operations.</span>
+<span class="sd">                These methods will utilize `target_table`, `dataframe`, and `target_schema` as part of their operation.</span>
+
+<span class="sd">                Examples</span>
+<span class="sd">                --------</span>
+<span class="sd">                df_data = pandas.read_csv(&#39;path/to/data.csv&#39;)</span>
+<span class="sd">                sql_upserter = FromDataframe(&#39;my_table&#39;, df_data, &#39;public&#39;)</span>
+<span class="sd">                sql_upserter.upsert()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_table</span><span class="p">,</span> <span class="n">target_schema</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -982,8 +1036,33 @@
 <h5 id="keepitsql.core.from_dataframe.FromDataframe.__init__--parameters">Parameters</h5>
 <ul>
 <li>target_table: str. The name of the target table for SQL operations.</li>
-<li>dataframe: DataFrame. The dataframe containing the data to be upserted.</li>
-<li>target_schema: str, optional. The schema of the target table, if applicable.</li>
+<li>dataframe: DataFrame. The dataframe contclass FromDataframe(Upsert, Insert):
+    def <strong>init</strong>(self, target_table, dataframe, target_schema=None):<pre><code>Initializes a new instance of the FromDataframe class, which is designed to perform upsert and insert operations on a SQL table using data from a pandas DataFrame.
+
+Inherits from:
+Upsert -- A class that implements the logic for updating existing records or inserting new records if they do not exist.
+Insert -- A class that implements the logic for inserting new records into a SQL table.
+
+Parameters
+----------
+target_table : str
+    The name of the target table where SQL operations will be performed.
+
+dataframe : DataFrame
+    The pandas DataFrame containing the data that needs to be upserted or inserted into the target table.
+
+Methods
+-------
+The class should implement methods inherited from `Upsert` and `Insert` classes for executing SQL operations.
+These methods will utilize `target_table`, `dataframe`, and `target_schema` as part of their operation.
+
+Examples
+--------
+df_data = pandas.read_csv('path/to/data.csv')
+sql_upserter = FromDataframe('my_table', df_data, 'public')
+sql_upserter.upsert()
+</code></pre>
+</li>
 </ul>
 
             <details class="quote">
@@ -997,14 +1076,68 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">target_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">target_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initializes a new instance of the FromDataframe class.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    - target_table: str. The name of the target table for SQL operations.</span>
-<span class="sd">    - dataframe: DataFrame. The dataframe containing the data to be upserted.</span>
-<span class="sd">    - target_schema: str, optional. The schema of the target table, if applicable.</span>
+<span class="sd">    - dataframe: DataFrame. The dataframe contclass FromDataframe(Upsert, Insert):</span>
+<span class="sd">        def __init__(self, target_table, dataframe, target_schema=None):</span>
+
+<span class="sd">            Initializes a new instance of the FromDataframe class, which is designed to perform upsert and insert operations on a SQL table using data from a pandas DataFrame.</span>
+
+<span class="sd">            Inherits from:</span>
+<span class="sd">            Upsert -- A class that implements the logic for updating existing records or inserting new records if they do not exist.</span>
+<span class="sd">            Insert -- A class that implements the logic for inserting new records into a SQL table.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            target_table : str</span>
+<span class="sd">                The name of the target table where SQL operations will be performed.</span>
+
+<span class="sd">            dataframe : DataFrame</span>
+<span class="sd">                The pandas DataFrame containing the data that needs to be upserted or inserted into the target table.</span>
+
+
+
+<span class="sd">            Methods</span>
+<span class="sd">            -------</span>
+<span class="sd">            The class should implement methods inherited from `Upsert` and `Insert` classes for executing SQL operations.</span>
+<span class="sd">            These methods will utilize `target_table`, `dataframe`, and `target_schema` as part of their operation.</span>
+
+<span class="sd">            Examples</span>
+<span class="sd">            --------</span>
+<span class="sd">            df_data = pandas.read_csv(&#39;path/to/data.csv&#39;)</span>
+<span class="sd">            sql_upserter = FromDataframe(&#39;my_table&#39;, df_data, &#39;public&#39;)</span>
+<span class="sd">            sql_upserter.upsert()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_table</span><span class="p">,</span> <span class="n">target_schema</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -1493,12 +1626,7 @@ print(insert_statement)
 
               <details class="quote">
                 <summary>Source code in <code>keepitsql/core/upsert.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
 <span class="normal">118</span>
@@ -1551,7 +1679,12 @@ print(insert_statement)
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
-<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InsertOnConflict</span><span class="p">(</span><span class="n">Insert</span><span class="p">):</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InsertOnConflict</span><span class="p">(</span><span class="n">Insert</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to handle inserting data into a target table with conflict resolution.</span>
 
@@ -1579,7 +1712,7 @@ print(insert_statement)
         <span class="n">source_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">match_condition</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">source_schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">column_exclusion</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">constraint_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">temp_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1609,7 +1742,7 @@ print(insert_statement)
             <span class="n">insert_statment</span><span class="o">=</span><span class="n">insert_stmt</span><span class="p">,</span> <span class="n">match_condition</span><span class="o">=</span><span class="n">match_conditions</span><span class="p">,</span> <span class="n">update_list</span><span class="o">=</span><span class="n">update_list</span>
         <span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="n">on_conflict_statement</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">on_conflict_statement</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -1697,18 +1830,18 @@ print(insert_statement)
 
             <details class="quote">
               <summary>Source code in <code>keepitsql/core/upsert.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
-<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">target_schema</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">target_schema</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initializes the InsertOnConflict class with the target table, target schema, and dataframe.</span>
 
@@ -1730,7 +1863,7 @@ print(insert_statement)
 
 
 <h3 id="keepitsql.core.upsert.InsertOnConflict.insert_on_conflict" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">insert_on_conflict</span><span class="p">(</span><span class="n">source_table</span><span class="p">,</span> <span class="n">match_condition</span><span class="p">,</span> <span class="n">source_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">column_exclusion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">temp_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">insert_on_conflict</span><span class="p">(</span><span class="n">source_table</span><span class="p">,</span> <span class="n">match_condition</span><span class="p">,</span> <span class="n">source_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constraint_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">temp_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1804,7 +1937,7 @@ print(insert_statement)
               </div>
             </td>
             <td>
-                  <code>None</code>
+                <em>required</em>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1826,12 +1959,7 @@ print(insert_statement)
 
             <details class="quote">
               <summary>Source code in <code>keepitsql/core/upsert.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span>
@@ -1861,12 +1989,17 @@ print(insert_statement)
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
-<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">insert_on_conflict</span><span class="p">(</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">insert_on_conflict</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">source_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">match_condition</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">source_schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">column_exclusion</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">constraint_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">temp_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1896,7 +2029,7 @@ print(insert_statement)
         <span class="n">insert_statment</span><span class="o">=</span><span class="n">insert_stmt</span><span class="p">,</span> <span class="n">match_condition</span><span class="o">=</span><span class="n">match_conditions</span><span class="p">,</span> <span class="n">update_list</span><span class="o">=</span><span class="n">update_list</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">on_conflict_statement</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">on_conflict_statement</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2067,7 +2200,12 @@ print(insert_statement)
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Merge</span><span class="p">:</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Merge</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to handle the merging of data from a source table into a target table using a match condition.</span>
 
@@ -2095,7 +2233,7 @@ print(insert_statement)
         <span class="n">source_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">match_condition</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">source_schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">column_exclusion</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">constraint_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">temp_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2105,7 +2243,9 @@ print(insert_statement)
 <span class="sd">            source_table (str): The name of the source table.</span>
 <span class="sd">            match_condition (list): The list of columns to be used as match conditions.</span>
 <span class="sd">            source_schema (str, optional): The schema of the source table. Defaults to None.</span>
-<span class="sd">            column_exclusion (list, optional): The list of columns to be excluded from the merge. Defaults to None.</span>
+<span class="sd">            constraint_columns (list, optional): The list of columns that are used as constraints,</span>
+<span class="sd">                                                such as primary keys or auto-update columns,</span>
+<span class="sd">                                                which should not be inserted. Defaults to None.</span>
 <span class="sd">            temp_type (str, optional): The type of temporary table to be used. Defaults to None.</span>
 
 <span class="sd">        Returns:</span>
@@ -2121,31 +2261,34 @@ print(insert_statement)
             <span class="n">temp_table_type</span><span class="o">=</span><span class="n">temp_type</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">all_columns</span> <span class="o">=</span> <span class="n">select_dataframe_column</span><span class="p">(</span>
-            <span class="n">source_dataframe</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dataframe</span><span class="p">,</span>
-            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;list&#39;</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="n">all_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">column_exclusion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">column_exclusion</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">constraint_columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">constraint_columns</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">column_inclusion</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">match_condition</span> <span class="ow">and</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">column_exclusion</span><span class="p">]</span>
+        <span class="c1"># column_inclusion = [col for col in all_columns if col not in match_condition and col not in column_exclusion]</span>
 
         <span class="n">join_conditions</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">  &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="n">mst</span><span class="o">.</span><span class="n">merge_condition</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">match_condition</span>
         <span class="p">)</span>
 
-        <span class="n">matched_condition</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1"> OR &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">mst</span><span class="o">.</span><span class="n">when_matched_condition</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span>
+        <span class="n">matched_condition</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> OR &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">mst</span><span class="o">.</span><span class="n">when_matched_condition</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">match_condition</span>
         <span class="p">)</span>
 
         <span class="n">merge_update_list</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">mst</span><span class="o">.</span><span class="n">update_list</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span>
+            <span class="n">mst</span><span class="o">.</span><span class="n">update_list</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">match_condition</span>
         <span class="p">)</span>
 
-        <span class="n">merge_insert_values</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mst</span><span class="o">.</span><span class="n">merge_insert</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span><span class="p">)</span>
+        <span class="n">merge_insert_values</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">mst</span><span class="o">.</span><span class="n">merge_insert</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">constraint_columns</span>
+        <span class="p">)</span>
         <span class="n">merge_insert_columns</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">mst</span><span class="o">.</span><span class="n">merge_insert_columns</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span>
+            <span class="n">mst</span><span class="o">.</span><span class="n">merge_insert_columns</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">constraint_columns</span>
         <span class="p">)</span>
 
         <span class="n">merge_statement</span> <span class="o">=</span> <span class="n">mst</span><span class="o">.</span><span class="n">merge_statement</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -2279,7 +2422,7 @@ print(insert_statement)
 
 
 <h3 id="keepitsql.core.upsert.Merge.merge" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">merge</span><span class="p">(</span><span class="n">source_table</span><span class="p">,</span> <span class="n">match_condition</span><span class="p">,</span> <span class="n">source_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">column_exclusion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">temp_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">merge</span><span class="p">(</span><span class="n">source_table</span><span class="p">,</span> <span class="n">match_condition</span><span class="p">,</span> <span class="n">source_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constraint_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">temp_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2343,13 +2486,15 @@ print(insert_statement)
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>column_exclusion</code></td>
+            <td><code>constraint_columns</code></td>
             <td>
                   <code>list</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The list of columns to be excluded from the merge. Defaults to None.</p>
+                <p>The list of columns that are used as constraints,
+                                such as primary keys or auto-update columns,
+                                which should not be inserted. Defaults to None.</p>
               </div>
             </td>
             <td>
@@ -2466,12 +2611,17 @@ print(insert_statement)
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">source_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">match_condition</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">source_schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">column_exclusion</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">constraint_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">temp_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2481,7 +2631,9 @@ print(insert_statement)
 <span class="sd">        source_table (str): The name of the source table.</span>
 <span class="sd">        match_condition (list): The list of columns to be used as match conditions.</span>
 <span class="sd">        source_schema (str, optional): The schema of the source table. Defaults to None.</span>
-<span class="sd">        column_exclusion (list, optional): The list of columns to be excluded from the merge. Defaults to None.</span>
+<span class="sd">        constraint_columns (list, optional): The list of columns that are used as constraints,</span>
+<span class="sd">                                            such as primary keys or auto-update columns,</span>
+<span class="sd">                                            which should not be inserted. Defaults to None.</span>
 <span class="sd">        temp_type (str, optional): The type of temporary table to be used. Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
@@ -2497,31 +2649,34 @@ print(insert_statement)
         <span class="n">temp_table_type</span><span class="o">=</span><span class="n">temp_type</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">all_columns</span> <span class="o">=</span> <span class="n">select_dataframe_column</span><span class="p">(</span>
-        <span class="n">source_dataframe</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dataframe</span><span class="p">,</span>
-        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;list&#39;</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">all_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">column_exclusion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">column_exclusion</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">constraint_columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constraint_columns</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="n">column_inclusion</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">match_condition</span> <span class="ow">and</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">column_exclusion</span><span class="p">]</span>
+    <span class="c1"># column_inclusion = [col for col in all_columns if col not in match_condition and col not in column_exclusion]</span>
 
     <span class="n">join_conditions</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">  &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="n">mst</span><span class="o">.</span><span class="n">merge_condition</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">match_condition</span>
     <span class="p">)</span>
 
-    <span class="n">matched_condition</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1"> OR &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="n">mst</span><span class="o">.</span><span class="n">when_matched_condition</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span>
+    <span class="n">matched_condition</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> OR &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">mst</span><span class="o">.</span><span class="n">when_matched_condition</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">match_condition</span>
     <span class="p">)</span>
 
     <span class="n">merge_update_list</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="n">mst</span><span class="o">.</span><span class="n">update_list</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span>
+        <span class="n">mst</span><span class="o">.</span><span class="n">update_list</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">match_condition</span>
     <span class="p">)</span>
 
-    <span class="n">merge_insert_values</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mst</span><span class="o">.</span><span class="n">merge_insert</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span><span class="p">)</span>
+    <span class="n">merge_insert_values</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">mst</span><span class="o">.</span><span class="n">merge_insert</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">constraint_columns</span>
+    <span class="p">)</span>
     <span class="n">merge_insert_columns</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="n">mst</span><span class="o">.</span><span class="n">merge_insert_columns</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">column_inclusion</span>
+        <span class="n">mst</span><span class="o">.</span><span class="n">merge_insert_columns</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">all_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">constraint_columns</span>
     <span class="p">)</span>
 
     <span class="n">merge_statement</span> <span class="o">=</span> <span class="n">mst</span><span class="o">.</span><span class="n">merge_statement</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -2614,12 +2769,7 @@ print(insert_statement)
 
               <details class="quote">
                 <summary>Source code in <code>keepitsql/core/upsert.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">176</span>
 <span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
@@ -2678,7 +2828,16 @@ print(insert_statement)
 <span class="normal">232</span>
 <span class="normal">233</span>
 <span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Upsert</span><span class="p">:</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Upsert</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to handle the upserting (insert or update) of data into a target table.</span>
 
@@ -2708,10 +2867,10 @@ print(insert_statement)
         <span class="n">source_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">match_condition</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
         <span class="n">source_schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">column_exclusion</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">constraint_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">temp_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dbms_output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an upsert statement based on the DBMS type. If the DBMS supports MERGE, it creates a merge statement.</span>
 <span class="sd">        Otherwise, it creates an insert-on-conflict statement.</span>
@@ -2720,29 +2879,33 @@ print(insert_statement)
 <span class="sd">            source_table (str): The name of the source table.</span>
 <span class="sd">            match_condition (list): The list of columns to be used as match conditions.</span>
 <span class="sd">            source_schema (str, optional): The schema of the source table. Defaults to None.</span>
-<span class="sd">            column_exclusion (list, optional): The list of columns to be excluded from the upsert. Defaults to None.</span>
+<span class="sd">            constraint_columns (list, optional): The list of columns that are used as constraints, such as primary keys or</span>
+<span class="sd">                                                auto-update columns, which should not be inserted. This is applied to</span>
+<span class="sd">                                                database systems that use the MERGE statement. Defaults to None.</span>
 <span class="sd">            temp_type (str, optional): The type of temporary table to be used. Defaults to None.</span>
-<span class="sd">            dbms_output (str, optional): The DBMS type. Defaults to None.</span>
+<span class="sd">            dbms_output (str, optional): The DBMS type (e.g., &#39;mssql&#39;, &#39;postgresql&#39;). Defaults to None.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The generated upsert statement.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="n">get_upsert_type_by_dbms</span><span class="p">(</span><span class="n">dbms_output</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;MERGE&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_instance</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+            <span class="n">upsert_statment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_instance</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
                 <span class="n">source_table</span><span class="o">=</span><span class="n">source_table</span><span class="p">,</span>
                 <span class="n">match_condition</span><span class="o">=</span><span class="n">match_condition</span><span class="p">,</span>
                 <span class="n">source_schema</span><span class="o">=</span><span class="n">source_schema</span><span class="p">,</span>
-                <span class="n">column_exclusion</span><span class="o">=</span><span class="n">column_exclusion</span><span class="p">,</span>
+                <span class="n">constraint_columns</span><span class="o">=</span><span class="n">constraint_columns</span><span class="p">,</span>
                 <span class="n">temp_type</span><span class="o">=</span><span class="n">temp_type</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__insert_instance</span><span class="o">.</span><span class="n">insert_on_conflict</span><span class="p">(</span>
+            <span class="n">upsert_statment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__insert_instance</span><span class="o">.</span><span class="n">insert_on_conflict</span><span class="p">(</span>
                 <span class="n">source_table</span><span class="o">=</span><span class="n">source_table</span><span class="p">,</span>
                 <span class="n">match_condition</span><span class="o">=</span><span class="n">match_condition</span><span class="p">,</span>
                 <span class="n">source_schema</span><span class="o">=</span><span class="n">source_schema</span><span class="p">,</span>
-                <span class="n">column_exclusion</span><span class="o">=</span><span class="n">column_exclusion</span><span class="p">,</span>
+                <span class="n">constraint_columns</span><span class="o">=</span><span class="n">constraint_columns</span><span class="p">,</span>
                 <span class="n">temp_type</span><span class="o">=</span><span class="n">temp_type</span><span class="p">,</span>
             <span class="p">)</span>
+        <span class="k">return</span> <span class="n">upsert_statment</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2830,12 +2993,7 @@ print(insert_statement)
 
             <details class="quote">
               <summary>Source code in <code>keepitsql/core/upsert.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">186</span>
 <span class="normal">187</span>
 <span class="normal">188</span>
 <span class="normal">189</span>
@@ -2843,7 +3001,12 @@ print(insert_statement)
 <span class="normal">191</span>
 <span class="normal">192</span>
 <span class="normal">193</span>
-<span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">target_schema</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">target_schema</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initializes the Upsert class with the target table, target schema, and dataframe.</span>
 
@@ -2867,7 +3030,7 @@ print(insert_statement)
 
 
 <h3 id="keepitsql.core.upsert.Upsert.upsert" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">upsert</span><span class="p">(</span><span class="n">source_table</span><span class="p">,</span> <span class="n">match_condition</span><span class="p">,</span> <span class="n">source_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">column_exclusion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">temp_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dbms_output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">upsert</span><span class="p">(</span><span class="n">source_table</span><span class="p">,</span> <span class="n">match_condition</span><span class="p">,</span> <span class="n">source_schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constraint_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">temp_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dbms_output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2932,13 +3095,15 @@ Otherwise, it creates an insert-on-conflict statement.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>column_exclusion</code></td>
+            <td><code>constraint_columns</code></td>
             <td>
                   <code>list</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The list of columns to be excluded from the upsert. Defaults to None.</p>
+                <p>The list of columns that are used as constraints, such as primary keys or
+                                auto-update columns, which should not be inserted. This is applied to
+                                database systems that use the MERGE statement. Defaults to None.</p>
               </div>
             </td>
             <td>
@@ -2966,7 +3131,7 @@ Otherwise, it creates an insert-on-conflict statement.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The DBMS type. Defaults to None.</p>
+                <p>The DBMS type (e.g., 'mssql', 'postgresql'). Defaults to None.</p>
               </div>
             </td>
             <td>
@@ -2988,6 +3153,7 @@ Otherwise, it creates an insert-on-conflict statement.</p>
       <tbody>
           <tr class="doc-section-item">
 <td><code>str</code></td>            <td>
+                  <code>str</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3000,12 +3166,7 @@ Otherwise, it creates an insert-on-conflict statement.</p>
 
             <details class="quote">
               <summary>Source code in <code>keepitsql/core/upsert.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
@@ -3039,15 +3200,24 @@ Otherwise, it creates an insert-on-conflict statement.</p>
 <span class="normal">232</span>
 <span class="normal">233</span>
 <span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">upsert</span><span class="p">(</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">upsert</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">source_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">match_condition</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">source_schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">column_exclusion</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">constraint_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">temp_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dbms_output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates an upsert statement based on the DBMS type. If the DBMS supports MERGE, it creates a merge statement.</span>
 <span class="sd">    Otherwise, it creates an insert-on-conflict statement.</span>
@@ -3056,29 +3226,33 @@ Otherwise, it creates an insert-on-conflict statement.</p>
 <span class="sd">        source_table (str): The name of the source table.</span>
 <span class="sd">        match_condition (list): The list of columns to be used as match conditions.</span>
 <span class="sd">        source_schema (str, optional): The schema of the source table. Defaults to None.</span>
-<span class="sd">        column_exclusion (list, optional): The list of columns to be excluded from the upsert. Defaults to None.</span>
+<span class="sd">        constraint_columns (list, optional): The list of columns that are used as constraints, such as primary keys or</span>
+<span class="sd">                                            auto-update columns, which should not be inserted. This is applied to</span>
+<span class="sd">                                            database systems that use the MERGE statement. Defaults to None.</span>
 <span class="sd">        temp_type (str, optional): The type of temporary table to be used. Defaults to None.</span>
-<span class="sd">        dbms_output (str, optional): The DBMS type. Defaults to None.</span>
+<span class="sd">        dbms_output (str, optional): The DBMS type (e.g., &#39;mssql&#39;, &#39;postgresql&#39;). Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: The generated upsert statement.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">get_upsert_type_by_dbms</span><span class="p">(</span><span class="n">dbms_output</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;MERGE&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_instance</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">upsert_statment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__merge_instance</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
             <span class="n">source_table</span><span class="o">=</span><span class="n">source_table</span><span class="p">,</span>
             <span class="n">match_condition</span><span class="o">=</span><span class="n">match_condition</span><span class="p">,</span>
             <span class="n">source_schema</span><span class="o">=</span><span class="n">source_schema</span><span class="p">,</span>
-            <span class="n">column_exclusion</span><span class="o">=</span><span class="n">column_exclusion</span><span class="p">,</span>
+            <span class="n">constraint_columns</span><span class="o">=</span><span class="n">constraint_columns</span><span class="p">,</span>
             <span class="n">temp_type</span><span class="o">=</span><span class="n">temp_type</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__insert_instance</span><span class="o">.</span><span class="n">insert_on_conflict</span><span class="p">(</span>
+        <span class="n">upsert_statment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__insert_instance</span><span class="o">.</span><span class="n">insert_on_conflict</span><span class="p">(</span>
             <span class="n">source_table</span><span class="o">=</span><span class="n">source_table</span><span class="p">,</span>
             <span class="n">match_condition</span><span class="o">=</span><span class="n">match_condition</span><span class="p">,</span>
             <span class="n">source_schema</span><span class="o">=</span><span class="n">source_schema</span><span class="p">,</span>
-            <span class="n">column_exclusion</span><span class="o">=</span><span class="n">column_exclusion</span><span class="p">,</span>
+            <span class="n">constraint_columns</span><span class="o">=</span><span class="n">constraint_columns</span><span class="p">,</span>
             <span class="n">temp_type</span><span class="o">=</span><span class="n">temp_type</span><span class="p">,</span>
         <span class="p">)</span>
+    <span class="k">return</span> <span class="n">upsert_statment</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3150,7 +3324,7 @@ Otherwise, it creates an insert-on-conflict statement.</p>
     <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
+      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
     
   </body>
