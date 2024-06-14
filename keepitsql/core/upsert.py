@@ -76,7 +76,7 @@ class Merge:
 
         # column_inclusion = [col for col in all_columns if col not in match_condition and col not in column_exclusion]
 
-        join_conditions = ',\n  '.join(
+        join_conditions = 'AND \n  '.join(
             mst.merge_condition.format(source_column=col, target_column=col) for col in match_condition
         )
 
