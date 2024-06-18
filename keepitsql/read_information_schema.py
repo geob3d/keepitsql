@@ -172,7 +172,7 @@ def get_table_column_info(
 
         # Use SQLAlchemy inspect to get primary key columns
         inspector = inspect(session.bind)
-        pk_columns = inspector.get_pk_constraint(table_name)['constrained_columns']
+        pk_columns = inspector.get_pk_constraint(table_name, schema=schema_name)['constrained_columns']
         primary_key_columns.extend(pk_columns)
 
     finally:
@@ -182,7 +182,7 @@ def get_table_column_info(
     return auto_increment_columns, primary_key_columns
 
 
-# # # Example usage:
-# # connection_string = "sqlite:////Users/themobilescientist/Documents/projects/archive/keepitsql/test.db"
-# # table_name = 'human'
-# # get_table_column_info(connection_string, table_name)
+# # Example usage:
+# connection_string = "sqlite:////Users/themobilescientist/Documents/projects/archive/keepitsql/test.db"
+# table_name = 'human'
+# get_table_column_info(connection_string, table_name)
