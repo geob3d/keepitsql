@@ -2,6 +2,7 @@ from data_engineer_utils import (
     get_dbms_by_py_driver,
     get_upsert_type_by_dbms,
 )
+from sqlalchemy.sql.elements import quoted_name
 
 from keepitsql.core.insert import Insert
 from keepitsql.core.table_properties import (
@@ -14,24 +15,7 @@ from keepitsql.sql_models.upsert import merge_statement as mst
 
 
 class Merge:
-    """
-    Class to handle the merging of data from a source table into a target table using a match condition.
-
-    Attributes:
-        target_table (str): The name of the target table.
-        target_schema (str): The schema of the target table.
-        dataframe (DataFrame): The dataframe containing the data to be merged.
-    """
-
-    def __init__(self, target_table, target_schema, dataframe):
-        """
-        Initializes the Merge class with the target table, target schema, and dataframe.
-
-        Args:
-            target_table (str): The name of the target table.
-            target_schema (str): The schema of the target table.
-            dataframe (DataFrame): The dataframe containing the data to be merged.
-        """
+    def __init__(self, target_table: str, target_schema: str = None, dataframe=None):
         self.target_table = target_table
         self.target_schema = target_schema
         self.dataframe = dataframe
@@ -74,29 +58,36 @@ class Merge:
         if constraint_columns is None:
             constraint_columns = []
 
-        # column_inclusion = [col for col in all_columns if col not in match_condition and col not in column_exclusion]
-
-        join_conditions = 'AND \n  '.join(
-            mst.merge_condition.format(source_column=col, target_column=col) for col in match_condition
+        join_conditions = ' AND '.join(
+            mst.merge_condition.format(
+                source_column=self.quote_identifier(col), target_column=self.quote_identifier(col)
+            )
+            for col in match_condition
         )
 
-        matched_condition = '\n OR '.join(
-            mst.when_matched_condition.format(target_column=col, source_column=col)
+        matched_condition = ' OR '.join(
+            mst.when_matched_condition.format(
+                target_column=self.quote_identifier(col), source_column=self.quote_identifier(col)
+            )
             for col in all_columns
             if col not in match_condition
         )
 
-        merge_update_list = ',\n'.join(
-            mst.update_list.format(target_column=col, source_column=col)
+        merge_update_list = ', '.join(
+            mst.update_list.format(target_column=self.quote_identifier(col), source_column=self.quote_identifier(col))
             for col in all_columns
             if col not in match_condition
         )
 
-        merge_insert_values = ',\n'.join(
-            mst.merge_insert.format(source_column=col) for col in all_columns if col not in constraint_columns
+        merge_insert_values = ', '.join(
+            mst.merge_insert.format(source_column=self.quote_identifier(col))
+            for col in all_columns
+            if col not in constraint_columns
         )
-        merge_insert_columns = ',\n'.join(
-            mst.merge_insert_columns.format(source_column=col) for col in all_columns if col not in constraint_columns
+        merge_insert_columns = ', '.join(
+            mst.merge_insert_columns.format(source_column=self.quote_identifier(col))
+            for col in all_columns
+            if col not in constraint_columns
         )
 
         merge_statement = mst.merge_statement.format(
@@ -110,6 +101,119 @@ class Merge:
         )
 
         return merge_statement
+
+    def quote_identifier(self, identifier: str) -> str:
+        """
+        Quote an SQL identifier to prevent SQL injection.
+
+        Args:
+            identifier (str): The identifier to quote.
+
+        Returns:
+            str: The quoted identifier.
+        """
+        return quoted_name(identifier, quote=True)
+
+
+'______'
+
+# class Merge:
+#     """
+#     Class to handle the merging of data from a source table into a target table using a match condition.
+
+#     Attributes:
+#         target_table (str): The name of the target table.
+#         target_schema (str): The schema of the target table.
+#         dataframe (DataFrame): The dataframe containing the data to be merged.
+#     """
+
+#     def __init__(self, target_table, target_schema, dataframe):
+#         """
+#         Initializes the Merge class with the target table, target schema, and dataframe.
+
+#         Args:
+#             target_table (str): The name of the target table.
+#             target_schema (str): The schema of the target table.
+#             dataframe (DataFrame): The dataframe containing the data to be merged.
+#         """
+#         self.target_table = target_table
+#         self.target_schema = target_schema
+#         self.dataframe = dataframe
+
+#     def merge(
+#         self,
+#         source_table: str,
+#         match_condition: list,
+#         source_schema: str = None,
+#         constraint_columns: list = None,
+#         temp_type: str = None,
+#     ) -> str:
+#         """
+#         Creates a SQL merge statement to merge data from the source table into the target table.
+
+#         Args:
+#             source_table (str): The name of the source table.
+#             match_condition (list): The list of columns to be used as match conditions.
+#             source_schema (str, optional): The schema of the source table. Defaults to None.
+#             constraint_columns (list, optional): The list of columns that are used as constraints,
+#                                                 such as primary keys or auto-update columns,
+#                                                 which should not be inserted. Defaults to None.
+#             temp_type (str, optional): The type of temporary table to be used. Defaults to None.
+
+#         Returns:
+#             str: The generated SQL merge statement.
+#         """
+#         target_table = format_table_name(
+#             table_name=self.target_table,
+#             schema_name=self.target_schema,
+#         )
+#         source_table = format_table_name(
+#             table_name=source_table,
+#             schema_name=source_schema,
+#             temp_table_type=temp_type,
+#         )
+
+#         all_columns = list(self.dataframe.columns)
+
+#         if constraint_columns is None:
+#             constraint_columns = []
+
+#         # column_inclusion = [col for col in all_columns if col not in match_condition and col not in column_exclusion]
+
+#         join_conditions = 'AND \n  '.join(
+#             mst.merge_condition.format(source_column=col, target_column=col) for col in match_condition
+#         )
+
+#         matched_condition = '\n OR '.join(
+#             mst.when_matched_condition.format(target_column=col, source_column=col)
+#             for col in all_columns
+#             if col not in match_condition
+#         )
+
+#         merge_update_list = ',\n'.join(
+#             mst.update_list.format(target_column=col, source_column=col)
+#             for col in all_columns
+#             if col not in match_condition
+#         )
+
+#         merge_insert_values = ',\n'.join(
+#             mst.merge_insert.format(source_column=col) for col in all_columns if col not in constraint_columns
+#         )
+#         merge_insert_columns = ',\n'.join(
+#             mst.merge_insert_columns.format(source_column=col) for col in all_columns if col not in constraint_columns
+#         )
+
+#         merge_statement = mst.merge_statement.format(
+#             target_table=target_table,
+#             source_table=source_table,
+#             merge_join_conditions=join_conditions,
+#             matched_condition=matched_condition,
+#             update_list=merge_update_list,
+#             insert_columns=merge_insert_columns,
+#             merge_insert_value=merge_insert_values,
+#         )
+
+#         return merge_statement
 
 
 class InsertOnConflict(Insert):

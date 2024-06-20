@@ -44,6 +44,7 @@ class Insert:
         ```
         """
         self.source_dataframe = self.dataframe[column_select] if column_select is not None else self.dataframe
+        columns = self.source_dataframe.columns
 
         target_tbl = format_table_name(
             table_name=self.target_table,
@@ -51,25 +52,14 @@ class Insert:
             temp_table_type=temp_type,
         )
 
-        # Assuming `prepare_sql_columnlist` handles DataFrame and returns a string of column names for SQL
-        get_column_header = prepare_column_select_list(
-            self.dataframe,
-            column_select,
-        )
-
-        # Convert DataFrame values to strings, handle None values, and escape single quotes
-        formatted_values = self.dataframe.map(
-            lambda x: f"'{str(x).replace('s', 'd')}'" if x is not None else 'NULL',
-        )
-
-        # Build the values string by concatenating row values
-        value_list = ',\n '.join(f"({','.join(row)})" for row in formatted_values.values)
+        columns_placeholder = ",\n    ".join(columns)
+        values_placeholder = ",\n    ".join([f":{col}" for col in columns])
 
         # Construct the full INSERT statement
         insert_statement = ist.standard_insert.format(
             table_name=target_tbl,
-            column_names=get_column_header,
-            insert_value_list=value_list,
+            column_names=columns_placeholder,
+            insert_value_list=values_placeholder,
         )
 
         return insert_statement

@@ -40,3 +40,6 @@ class FromDataframe(Upsert, Insert):
                 sql_upserter.upsert()
         """
         super().__init__(target_table, target_schema, dataframe)
+
+    def get_params(self, row):
+        return {col: row[col] for col in self.dataframe.columns}

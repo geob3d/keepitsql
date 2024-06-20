@@ -59,13 +59,81 @@ class TestFromDataframe(unittest.TestCase):
         print('-' * 40)
 
     def test_insert(self):
-        # Perform an insert operation (assuming insert method exists in FromDataframe)
+        # Perform an insert operation
         insert_sql = self.from_dataframe.insert()
         expected_sql_fragment = "INSERT INTO"
         self.assertIn(expected_sql_fragment, insert_sql)
+        self.assertIn("ItemID", insert_sql)
+        self.assertIn("ItemName", insert_sql)
+        self.assertIn("Description", insert_sql)
+        self.assertIn("Category", insert_sql)
+        self.assertIn("Quantity", insert_sql)
+        self.assertIn("Location", insert_sql)
         print("Insert SQL:")
         print(insert_sql)
         print('-' * 40)
+
+    def test_get_params(self):
+        for _, row in self.df.iterrows():
+            params = self.from_dataframe.get_params(row)
+            expected_keys = ["ItemID", "ItemName", "Description", "Category", "Quantity", "Location"]
+            self.assertTrue(all(key in params for key in expected_keys))
+            print(params)
+
+    def test_insert_with_params(self):
+        # Test both insert SQL and parameters alignment
+        insert_sql = self.from_dataframe.insert()
+        for _, row in self.df.iterrows():
+            params = self.from_dataframe.get_params(row)
+            self.assertIn(":ItemID", insert_sql)
+            self.assertIn(":ItemName", insert_sql)
+            self.assertIn(":Description", insert_sql)
+            self.assertIn(":Category", insert_sql)
+            self.assertIn(":Quantity", insert_sql)
+            self.assertIn(":Location", insert_sql)
+            self.assertEqual(params["ItemID"], row["ItemID"])
+            self.assertEqual(params["ItemName"], row["ItemName"])
+            self.assertEqual(params["Description"], row["Description"])
+            self.assertEqual(params["Category"], row["Category"])
+            self.assertEqual(params["Quantity"], row["Quantity"])
+            self.assertEqual(params["Location"], row["Location"])
+            print("Parameters:")
+            print(params)
+            print('-' * 40)
+
+    def test_generate_sql_with_params(self):
+        # Test generated SQL with parameters
+        insert_sql = self.from_dataframe.insert()
+        for _, row in self.df.iterrows():
+            params = self.from_dataframe.get_params(row)
+            generated_sql = insert_sql
+            for key, value in params.items():
+                generated_sql = generated_sql.replace(f":{key}", repr(value))
+            print("Generated SQL with parameters:")
+            print(generated_sql)
+            print('-' * 40)
+            # Verify the generated SQL is as expected
+            self.assertIn("INSERT INTO", generated_sql)
+            self.assertIn(f"'{params['ItemID']}'", generated_sql)
+            self.assertIn(f"'{params['ItemName']}'", generated_sql)
+            self.assertIn(f"'{params['Description']}'", generated_sql)
+            self.assertIn(f"'{params['Category']}'", generated_sql)
+            self.assertIn(f"{params['Quantity']}", generated_sql)
+            self.assertIn(f"'{params['Location']}'", generated_sql)
+
+    # def test_insert(self):
+    #     # Perform an insert operation (assuming insert method exists in FromDataframe)
+    #     insert_sql = self.from_dataframe.insert()
+    #     expected_sql_fragment = "INSERT INTO"
+    #     self.assertIn(expected_sql_fragment, insert_sql)
+    #     print("Insert SQL:")
+    #     print(insert_sql)
+    #     print('-' * 40)
+
+    # def test_get_params(self):
+    #     for _, row in self.df.iterrows():
+    #         params = self.from_dataframe.get_params(row)
+    #         print(params)
 
 
 if __name__ == '__main__':
