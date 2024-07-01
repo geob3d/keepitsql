@@ -24,11 +24,22 @@ def select_dataframe_column(
 
     # Return data according to the specified output type
     if output_type == 'list':
-        # Convert the columns to a list if 'list' is specified
-        if hasattr(selected_data, 'columns'):  # Pandas DataFrame
-            return selected_data.columns.tolist()
-        elif hasattr(selected_data, 'schema'):  # Polars DataFrame
-            return [field.name for field in selected_data.schema]
+        # Further check the module to differentiate between pandas and polars
+        df_type = type(selected_data).__name__
+        df_module = selected_data.__class__.__module__
+
+        if df_type == 'DataFrame':
+            if 'pandas' in df_module:
+                return selected_data.columns.tolist()
+            elif 'polars' in df_module:
+                return selected_data.columns
+        return "Unknown type"
+        # # Convert the columns to a list if 'list' is specified
+        # if hasattr(selected_data, 'columns'):  # Pandas DataFrame
+        #     return selected_data.columns.tolist()
+        # elif hasattr(selected_data, 'schema'):  # Polars DataFrame
+        #     return [field.name for field in selected_data.schema]
+
     elif output_type == 'df':
         # Return the dataframe as is
         return selected_data
