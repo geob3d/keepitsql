@@ -6,12 +6,11 @@ from keepitsql.core.table_properties import (
 from keepitsql.sql_models.insert import insert_statement as ist
 
 
-class Insert:
-    def insert(
-        self,
-        column_select: list = None,
-        temp_type: str = None,
-    ) -> str:
+class GenerateInsert:
+    def __init__(self, dataframe) -> None:
+        self.dataframe = dataframe
+
+    def insert(self, table_name: str, column_select: list = None, source_table: str = None) -> str:
         """Generates an SQL INSERT statement for inserting data from the source DataFrame into the target table. This method supports selective column insertion and can format the table name for temporary tables. The values from the DataFrame are formatted as strings, with special handling for None values and escaping single quotes.
 
         Parameters
@@ -43,23 +42,24 @@ class Insert:
         print(insert_statement)
         ```
         """
-        self.source_dataframe = self.dataframe[column_select] if column_select is not None else self.dataframe
-        columns = self.source_dataframe.columns
-
-        target_tbl = format_table_name(
-            table_name=self.target_table,
-            schema_name=self.target_schema,
-            temp_table_type=temp_type,
-        )
+        source_dataframe = self.dataframe
+        columns = source_dataframe.columns
 
         columns_placeholder = ",\n    ".join(columns)
         values_placeholder = ",\n    ".join([f":{col}" for col in columns])
 
         # Construct the full INSERT statement
         insert_statement = ist.standard_insert.format(
-            table_name=target_tbl,
+            table_name=table_name,
             column_names=columns_placeholder,
             insert_value_list=values_placeholder,
         )
 
-        return insert_statement
+        insert_statement_select = ist.insert_select_statment.format(
+            target_table_name=table_name, column_names=columns_placeholder, source_table=source_table
+        )
+
+        if source_table is not None:
+            return insert_statement_select
+        else:
+            return insert_statement

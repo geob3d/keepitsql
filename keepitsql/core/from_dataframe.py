@@ -1,9 +1,9 @@
-from keepitsql.core.insert import Insert
-from keepitsql.core.upsert import Upsert
+from keepitsql.core.insert import GenerateInsert
+from keepitsql.core.upsert import GenerateMergeStatement
 
 
-class FromDataframe(Upsert, Insert):
-    def __init__(self, target_table, dataframe, target_schema=None):
+class FromDataframe(GenerateMergeStatement, GenerateInsert):
+    def __init__(self, dataframe):
         """Initializes a new instance of the FromDataframe class.
 
         Parameters
@@ -39,7 +39,7 @@ class FromDataframe(Upsert, Insert):
                 sql_upserter = FromDataframe('my_table', df_data, 'public')
                 sql_upserter.upsert()
         """
-        super().__init__(target_table, target_schema, dataframe)
+        super().__init__(dataframe)
 
     def get_params(self, row):
         return {col: row[col] for col in self.dataframe.columns}
