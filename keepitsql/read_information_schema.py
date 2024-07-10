@@ -182,7 +182,9 @@ def get_table_column_info(
     return auto_increment_columns, primary_key_columns
 
 
-# # Example usage:
+# Example usage:
 # connection_string = "sqlite:////Users/themobilescientist/Documents/projects/archive/keepitsql/test.db"
 # table_name = 'human'
-# get_table_column_info(connection_string, table_name)
+# test_conn = get_table_column_info(connection_string, table_name)
+
+# print(test_conn)

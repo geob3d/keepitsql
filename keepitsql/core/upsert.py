@@ -62,9 +62,7 @@ class GenerateMergeStatement:
         match_condition: list,
         constraint_columns: list = None,
         source_table_name: str = None,
-        # schema_name: str = None,
-        # source_table:str = None,
-        # temp_type: str = None,
+        **kwargs,
     ) -> str:
         """
         Creates a SQL merge statement to merge data from the source table into the target table.
@@ -144,6 +142,7 @@ class GenerateMergeStatement:
         match_condition: list,
         constraint_columns: list = None,
         source_table_name: str = None,
+        **kwargs
         # source_table: str,
         # match_condition: list,
         # source_schema: str = None,
@@ -193,6 +192,7 @@ class GenerateMergeStatement:
         dbms: str,
         constraint_columns: list = None,
         source_table_name: str = None,
+        **kwargs,
     ):
         if get_upsert_type_by_dbms(dbms) == 'MERGE':
             return self.generate_merge_statement(
