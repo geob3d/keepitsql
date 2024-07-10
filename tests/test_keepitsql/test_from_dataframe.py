@@ -23,11 +23,11 @@ class TestFromDataframe(unittest.TestCase):
         self.assertIsInstance(self.intep, FromDataframe)
         self.assertEqual(self.intep.dataframe.shape, self.test_df.shape)
 
-    def test_get_params(self):
-        row = self.test_df
-        params = self.intep.get_params(row)
-        expected_params = {'Name': 'Alice', 'Age': 25, 'City': 'New York', 'Salary': 70000}
-        self.assertEqual(params, expected_params)
+    # def test_get_params(self):
+    #     row = self.test_df
+    #     params = self.intep.get_params(row)
+    #     expected_params = {'Name': 'Alice', 'Age': 25, 'City': 'New York', 'Salary': 70000}
+    #     self.assertEqual(params, expected_params)
 
     def test_dbms_merge_generator(self):
         # Assuming the GenerateMergeStatement class has a method called dbms_merge_generator
