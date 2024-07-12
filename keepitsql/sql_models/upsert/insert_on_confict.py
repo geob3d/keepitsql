@@ -12,7 +12,7 @@ DO UPDATE SET
 
 insert_on_conflict_sqlite = '''
 {insert_statment}
-where_true
+WHERE true
 ON CONFLICT ({match_condition})
 DO UPDATE SET
 {update_list}
