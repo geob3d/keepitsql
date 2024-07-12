@@ -19,7 +19,6 @@ INSERT INTO {target_table_name} (
 SELECT 
  {column_names}
 FROM {source_table}
-
 '''
 
 # standard_insert = '''

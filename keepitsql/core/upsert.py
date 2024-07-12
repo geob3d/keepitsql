@@ -142,6 +142,7 @@ class GenerateMergeStatement:
         match_condition: list,
         constraint_columns: list = None,
         source_table_name: str = None,
+        is_sqlite: str = 'N',
         **kwargs
         # source_table: str,
         # match_condition: list,
@@ -178,10 +179,14 @@ class GenerateMergeStatement:
             for col in update_list_col
             if col.upper() not in list(map(lambda x: x.upper(), match_condition))
         )
-
-        on_conflict_statement = ioc.insert_on_conflict.format(
-            insert_statment=insert_stmt, match_condition=match_conditions, update_list=update_list
-        )
+        if is_sqlite == "Y" and source_table_name != None:
+            on_conflict_statement = ioc.insert_on_conflict_sqlite.format(
+                insert_statment=insert_stmt, match_condition=match_conditions, update_list=update_list
+            )
+        else:
+            on_conflict_statement = ioc.insert_on_conflict.format(
+                insert_statment=insert_stmt, match_condition=match_conditions, update_list=update_list
+            )
 
         return on_conflict_statement
 
@@ -203,11 +208,13 @@ class GenerateMergeStatement:
             )
 
         else:
+            sqllite_flag = 'Y' if dbms == 'sqlite' else 'N'
             return self.generate_insert_on_conflict(
                 table_name=table_name,
                 match_condition=match_condition,
                 constraint_columns=constraint_columns,
                 source_table_name=source_table_name,
+                is_sqlite=sqllite_flag,
             )
 
     # if get_upsert_type_by_dbms(dbms_output) == 'MERGE':

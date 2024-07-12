@@ -9,3 +9,11 @@ ON CONFLICT ({match_condition})
 DO UPDATE SET
 {update_list}
 '''
+
+insert_on_conflict_sqlite = '''
+{insert_statment}
+where_true
+ON CONFLICT ({match_condition})
+DO UPDATE SET
+{update_list}
+'''
