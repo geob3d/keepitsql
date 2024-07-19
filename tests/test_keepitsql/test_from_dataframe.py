@@ -29,9 +29,14 @@ class TestFromDataframe(unittest.TestCase):
     #     expected_params = {'Name': 'Alice', 'Age': 25, 'City': 'New York', 'Salary': 70000}
     #     self.assertEqual(params, expected_params)
 
-    def test_dbms_merge_generator(self):
+    def test_dbms_merge_generator_on_conflict_sqllite(self):
         # Assuming the GenerateMergeStatement class has a method called dbms_merge_generator
         sn = self.intep.dbms_merge_generator("SPO.Users", ['Name'], source_table_name='HIP.users', dbms='sqlite')
+        self.assertIsNotNone(sn)
+
+    def test_dbms_merge_generator_mssql(self):
+        # Assuming the GenerateMergeStatement class has a method called dbms_merge_generator
+        sn = self.intep.dbms_merge_generator("SPO.Users", ['Name'], source_table_name='HIP.users', dbms='mssql')
         self.assertIsNotNone(sn)
 
     def test_insert(self):

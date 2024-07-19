@@ -8,7 +8,6 @@ class FromDataframe(GenerateMergeStatement, GenerateInsert):
 
         Parameters
         ----------
-        - target_table: str. The name of the target table for SQL operations.
         - dataframe: DataFrame. The dataframe contclass FromDataframe(Upsert, Insert):
             def __init__(self, target_table, dataframe, target_schema=None):
 
@@ -20,9 +19,6 @@ class FromDataframe(GenerateMergeStatement, GenerateInsert):
 
                 Parameters
                 ----------
-                target_table : str
-                    The name of the target table where SQL operations will be performed.
-
                 dataframe : DataFrame
                     The pandas DataFrame containing the data that needs to be upserted or inserted into the target table.
 
