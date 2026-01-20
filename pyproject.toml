@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "keepitsql"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["George Buahin <geob3d@gmail.com>"]
 readme = "README.md"
@@ -16,7 +16,7 @@ data-engineer-utils = {git = "https://github.com/geob3d/data_engineer_utils.git"
 sqlalchemy = "^2.0.25"
 black = "^24.3.0"
 pandas = "^2.2.1"
-polars = "^0.20.16"
+polars = ">=0.20.16"
 
 
 
